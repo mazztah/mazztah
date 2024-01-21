@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NASA APOD Suche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #0074D9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
+
+        p {
+            text-align: justify;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>NASA APOD Suche</h1>
+    <div class="container">
+        <!-- Suchformular -->
+        <form method="POST" action="/">
+            <label for="date">Datum (YYYY-MM-DD):</label>
+            <input type="text" name="date" id="date" placeholder="z.B. 2024-01-20">
+            <input type="submit" value="Suchen">
+        </form>
+
+        <!-- Bild des Tages -->
+        <div class="image-container">
+            {% if data_today %}
+            <h2>Bild des Tages ({{ data_today.date }})</h2>
+            <img src="{{ data_today.url }}" alt="{{ data_today.title }}">
+            <p>{{ data_today.title }}</p>
+            <p>{{ data_today.explanation }}</p>
+            <p>Medientyp: {{ data_today.media_type }}</p>
+            {% else %}
+            <p>Kein Bild für heute gefunden.</p>
+            {% endif %}
+        </div>
+
+        <!-- Bild von gestern -->
+        <div class="image-container">
+            {% if data_yesterday %}
+            <h2>Bild von gestern ({{ data_yesterday.date }})</h2>
+            <img src="{{ data_yesterday.url }}" alt="{{ data_yesterday.title }}">
+            <p>{{ data_yesterday.title }}</p>
+            <p>{{ data_yesterday.explanation }}</p>
+            <p>Medientyp: {{ data_yesterday.media_type }}</p>
+            {% else %}
+            <p>Kein Bild für gestern gefunden.</p>
+            {% endif %}
+        </div>
+
+        <!-- Bild von vorgestern -->
+        <div class="image-container">
+            {% if data_day_before_yesterday %}
+            <h2>Bild von vorgestern ({{ data_day_before_yesterday.date }})</h2>
+            <img src="{{ data_day_before_yesterday.url }}" alt="{{ data_day_before_yesterday.title }}">
+            <p>{{ data_day_before_yesterday.title }}</p>
+            <p>{{ data_day_before_yesterday.explanation }}</p>
+            <p>Medientyp: {{ data_day_before_yesterday.media_type }}</p>
+            {% else %}
+            <p>Kein Bild für vorgestern gefunden.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

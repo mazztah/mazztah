@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NASA APOD Suche</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #0074D9;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 10px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>NASA APOD Suche</h1>
+    <div class="container">
+        <form method="POST">
+            <label for="date">Datum (YYYY-MM-DD):</label>
+            <input type="text" name="date" id="date" placeholder="z.B. 2024-01-20">
+            <input type="submit" value="Suchen">
+        </form>
+
+        {% if data %}
+        <h2>Bild des Tages ({{ data.date }})</h2>
+        <img src="{{ data.url }}" alt="{{ data.title }}">
+        <h3>{{ data.title }}</h3>
+        <p>{{ data.explanation }}</p>
+        <p>Medientyp: {{ data.media_type }}</p>
+        {% else %}
+        <p>Kein Bild für das angegebene Datum gefunden.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+
+
